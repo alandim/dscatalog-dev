@@ -1,8 +1,6 @@
 package com.devsuperior.dscatalog.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -10,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,19 +29,17 @@ public class ProductService {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
-
+	
 	@Transactional(readOnly = true)
-	public List<ProductDTO> findAll() {
-		List<Product> list = repository.findAll();
-		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList()); // lambda
+	public Page<ProductDTO> findAllPaged(Pageable pageable) {
+		Page<Product> list = repository.findAll(pageable);
+		return list.map(x -> new ProductDTO(x));
 	}
 
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
-
-		// evitar valor nulo
 		Optional<Product> obj = repository.findById(id);
-		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Produto não foi encontrada"));
+		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Produto não foi encontrado"));
 		return new ProductDTO(entity, entity.getCategories());
 	}
 
@@ -77,12 +73,6 @@ public class ProductService {
 		catch (DataIntegrityViolationException e) {
 			throw new DataBaseException("Integrity Violation");
 		}
-	}
-
-	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Product> list = repository.findAll(pageRequest);
-		return list.map(x -> new ProductDTO(x));
 	}
 	
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
