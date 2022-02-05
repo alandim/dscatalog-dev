@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String filedName;
+	private String fieldName;
 	private String message;
 	
 	public FieldMessage() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FieldMessage(String filedName, String message) {
-		this.filedName = filedName;
+	public FieldMessage(String fieldName, String message) {
+		this.fieldName = fieldName;
 		this.message = message;
 	}
 
-	public String getFiledName() {
-		return filedName;
+	public String getFieldName() {
+		return fieldName;
 	}
 
-	public void setFiledName(String filedName) {
-		this.filedName = filedName;
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 
 	public String getMessage() {
