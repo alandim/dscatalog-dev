@@ -21,7 +21,7 @@ public class UserDTO implements Serializable{
 	@Email(message = "Entrar com um email válido")
 	private String email;
 	
-	Set<RoleDTO> roles = new HashSet<>();
+	private Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {
 		// TODO Auto-generated constructor stub

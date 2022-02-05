@@ -2,8 +2,7 @@ package com.devsuperior.dscatalog.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -33,7 +32,7 @@ public class ProductDTO implements Serializable{
 	@PastOrPresent(message = "A data não pode ser futura")
 	private Instant date;
 
-	private List<CategoryDTO> categories = new ArrayList<>();
+	private Set<CategoryDTO> categories = new HashSet<>();
 	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
@@ -110,11 +109,11 @@ public class ProductDTO implements Serializable{
 		this.date = date;
 	}
 
-	public List<CategoryDTO> getCategories() {
+	public Set<CategoryDTO> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<CategoryDTO> categories) {
+	public void setCategories(Set<CategoryDTO> categories) {
 		this.categories = categories;
 	}
 }
