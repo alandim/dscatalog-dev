@@ -9,25 +9,24 @@ import javax.validation.constraints.NotBlank;
 
 import com.devsuperior.dscatalog.entities.User;
 
-public class UserDTO implements Serializable{
-
+public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	@NotBlank(message = "Campo obrigatório")
 	private String firstName;
 	private String lastName;
-	
-	@Email(message = "Entrar com um email válido")
+
+	@Email(message = "Favor entrar um email válido")
 	private String email;
 	
-	private Set<RoleDTO> roles = new HashSet<>();
+	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public UserDTO(Long id, String firstName, String lastName, String email, String password) {
+	public UserDTO(Long id, String firstName, String lastName, String email) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,7 +38,7 @@ public class UserDTO implements Serializable{
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
 		email = entity.getEmail();
-		entity.getRoles().forEach(cat -> this.roles.add(new RoleDTO(cat)));
+		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
 	public Long getId() {
